@@ -1,0 +1,109 @@
+{
+  "name": "revtype",
+  "version": "0.5.0",
+  "description": "Turn any JavaScript data structure into its typed representation.",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "ava",
+    "start": "babel ./src --out-dir ./bin && node ./bin/revType.js"
+  },
+  "keywords": [
+    "flow",
+    "typescript",
+    "type-checking",
+    "type-safety",
+    "safety-dance"
+  ],
+  "dependencies": {
+    "babel-register": "^6.24.1"
+  },
+  "devDependencies": {
+    "ava": "^0.21.0",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-flow-runtime": "^0.11.1",
+    "babel-plugin-react-css-modules": "^2.1.3",
+    "babel-plugin-react-html-attrs": "^2.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-plugin-transform-react-display-name": "^6.25.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "chokidar": "^1.7.0",
+    "console.history": "^1.5.0",
+    "css-loader": "^0.28.4",
+    "enzyme": "^2.9.1",
+    "flow": "^0.2.3",
+    "flow-runtime": "^0.13.0",
+    "http-server": "^0.10.0",
+    "ignore-styles": "^5.0.1",
+    "import-lazy": "^3.0.0",
+    "jsx-control-statements": "^3.2.5",
+    "jsx-test-helpers": "^2.0.0",
+    "node-import-export": "^0.1.1",
+    "nodemon": "^1.11.0",
+    "postcss": "^6.0.8",
+    "postcss-loader": "^2.0.6",
+    "prettier": "^1.5.3",
+    "prettier-webpack-plugin": "^0.2.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1",
+    "regenerator-runtime": "^0.10.5",
+    "remmy": "^1.0.5",
+    "strip-json-comments": "^2.0.1",
+    "style-loader": "^0.18.2",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "tramix": "file:../tramix",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1"
+  },
+  "babel": {
+    "plugins": [
+      [
+        "flow-runtime",
+        {
+          "assert": true,
+          "annotate": true
+        }
+      ],
+      "transform-decorators-legacy",
+      "transform-class-properties",
+      "transform-react-display-name",
+      "jsx-control-statements",
+      "react-html-attrs",
+      [
+        "react-css-modules",
+        {
+          "context": "./source",
+          "generateScopedName": "[name]_[local]__"
+        }
+      ]
+    ],
+    "presets": [
+      "stage-0",
+      "env",
+      "react"
+    ]
+  },
+  "ava": {
+    "verbose": true,
+    "tap": false,
+    "require": [
+      "babel-register",
+      "babel-polyfill"
+    ],
+    "babel": "inherit",
+    "files": "./tests/*.test.js"
+  },
+  "author": "Colton Colcleasure (colshacol@gmail.com)",
+  "license": "ISC"
+}
