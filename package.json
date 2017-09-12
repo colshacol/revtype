@@ -1,11 +1,11 @@
 {
   "name": "revtype",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Turn any JavaScript data structure into its typed representation.",
   "main": "bin/index.js",
   "scripts": {
     "test": "ava",
-    "start": "babel ./src --out-dir ./bin && node ./bin/revType.js"
+    "start": "babel ./src --out-dir ./bin && node ./bin/sample.js"
   },
   "keywords": [
     "flow",

@@ -8,9 +8,9 @@ var _utils = require('./utils');
 
 var utils = _interopRequireWildcard(_utils);
 
-var _check = require('./check');
+var _ = require('./');
 
-var _check2 = _interopRequireDefault(_check);
+var _2 = _interopRequireDefault(_);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18,7 +18,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 exports.default = function (comp) {
   return function (props) {
-    console.log('{ @revtype.props } ' + comp.name, (0, _check2.default)(props));
+    console.log('{ @revtype.props } ' + comp.name, _2.default.parse(props));
     return new comp(props);
   };
 };

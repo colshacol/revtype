@@ -8,9 +8,9 @@ var _utils = require('./utils');
 
 var utils = _interopRequireWildcard(_utils);
 
-var _value = require('./value');
+var _revtype = require('./revtype');
 
-var _value2 = _interopRequireDefault(_value);
+var _revtype2 = _interopRequireDefault(_revtype);
 
 var _props = require('./props');
 
@@ -25,7 +25,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 exports.default = {
-  check: _value2.default,
+  parse: _revtype2.default,
   props: _props2.default,
   args: _args2.default
 };

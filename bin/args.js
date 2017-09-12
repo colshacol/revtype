@@ -8,9 +8,9 @@ var _utils = require('./utils');
 
 var utils = _interopRequireWildcard(_utils);
 
-var _check = require('./check');
+var _ = require('./');
 
-var _check2 = _interopRequireDefault(_check);
+var _2 = _interopRequireDefault(_);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26,7 +26,7 @@ exports.default = function (target, name, descriptor) {
         args[_key] = arguments[_key];
       }
 
-      console.log('{ @revtype.args } ' + target.constructor.name + '.' + name, (0, _check2.default)(args));
+      console.log('{ @revtype.args } ' + target.constructor.name + '.' + name, (0, _2.default)(args));
       return descriptor.initializer.apply(this).apply(undefined, _toConsumableArray(args));
     }
   };

@@ -1,10 +1,10 @@
 import * as utils from './utils';
-import value from './value';
+import revtype from './revtype';
 import props from './props';
 import args from './args';
 
 export default {
-  check: value,
+  parse: revtype,
   props,
   args,
 };

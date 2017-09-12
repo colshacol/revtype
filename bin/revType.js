@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,76 +6,36 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+var _utils = require('./utils');
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+var utils = _interopRequireWildcard(_utils);
 
-var primitiveMatch = function primitiveMatch(type) {
-  return type.match(/(string|number|boolean)/g);
-};
+var _flowRuntime = require('flow-runtime');
 
-var revTypeArray = function revTypeArray(array) {
-  return array.map(function (value) {
-    return revType(value);
-  });
-};
+var _flowRuntime2 = _interopRequireDefault(_flowRuntime);
 
-var revTypeObject = function revTypeObject(object) {
-  return Object.entries(object).reduce(function (target, _ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        key = _ref2[0],
-        value = _ref2[1];
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-    target[key] = revType(value);
-    return target;
-  }, {});
-};
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var revType = function revType(value) {
-  var typeOfValue = typeof value === "undefined" ? "undefined" : _typeof(value);
-  var isPrimitive = typeOfValue.match(/(string|number|boolean|function)/g);
+exports.default = _flowRuntime2.default.annotate(function (value) {
+  var _valueType = _flowRuntime2.default.any();
 
-  // Is of non-dynamic/flat type.
-  if (isPrimitive) {
-    return isPrimitive[0];
-  } else if (value === null) {
-    return "null";
-  } else if (value === undefined) {
-    return "undefined";
-  }
+  _flowRuntime2.default.param('value', _valueType).assert(value);
 
-  // Is of 'object' type.
-  if (Array.isArray(value)) {
-    return revTypeArray(value);
-  }
+  var isPrimitive = _flowRuntime2.default.union(_flowRuntime2.default.boolean(), _flowRuntime2.default.string(), _flowRuntime2.default.null()).assert(utils.primitiveMatch(typeof value === 'undefined' ? 'undefined' : _typeof(value)));
+  var type = isPrimitive;
 
-  if ((typeof value === "undefined" ? "undefined" : _typeof(value)) === "object") {
-    return revTypeObject(value);
-  }
-};
+  // if (isPrimitive) {
+  //   if (type === 'function') {
+  //     return `${type}(...${value.length})`
+  //   }
+  //   return isPrimitive;
+  // } else if (value === null) {
+  //   return "null";
+  // } else if (value === undefined) {
+  //   return "undefined";
+  // }
 
-var revTypeArgs = exports.revTypeArgs = function revTypeArgs(target, name, descriptor) {
-  return {
-    value: function value() {
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      console.log("{ @revTypeArgs } " + target.constructor.name + "." + name, revType(args));
-      return descriptor.initializer.apply(this).apply(undefined, _toConsumableArray(args));
-    }
-  };
-};
-
-var revTypeProps = exports.revTypeProps = function revTypeProps(comp) {
-  return function (props) {
-    console.log("{ @revTypeProps } " + comp.name, revType(props));
-    return new comp(props);
-  };
-};
-
-exports.default = {
-  props: revTypeProps,
-  args: revTypeArgs,
-  check: revType
-};
+  return isPrimitive === 'function' && type + '(...' + value.length + ')' || isPrimitive && isPrimitive || value === null && 'null' || value === undefined && 'undefined' || Array.isArray(value) && utils.handleArray(value) || (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && utils.handleObject(value);
+}, _flowRuntime2.default.function(_flowRuntime2.default.param('value', _flowRuntime2.default.any())));

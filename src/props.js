@@ -1,9 +1,9 @@
 import * as utils from './utils';
-import value from './value';
+import revtype from './';
 
 export default (comp) => {
   return props => {
-    console.log(`{ @revtype.props } ${comp.name}`, value(props));
+    console.log(`{ @revtype.props } ${comp.name}`, revtype.parse(props));
     return new comp(props);
   };
 };
